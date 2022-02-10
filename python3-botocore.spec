@@ -6,13 +6,13 @@
 Summary:	Low-level, data-driven core of boto 3
 Summary(pl.UTF-8):	Niskopoziomowy, oparty na danych rdzeń boto 3
 Name:		python3-botocore
-Version:	1.23.33
+Version:	1.23.52
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/botocore/
 Source0:	https://files.pythonhosted.org/packages/source/b/botocore/botocore-%{version}.tar.gz
-# Source0-md5:	ac4e471224a3be9e99afeba0ad1ab928
+# Source0-md5:	9e86e9d3a3f456a7d04aa40bacd26aab
 URL:		https://pypi.org/project/botocore/
 BuildRequires:	python3-dateutil >= 2.1
 BuildRequires:	python3-jmespath >= 0.7.1
