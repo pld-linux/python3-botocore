@@ -1,39 +1,39 @@
 #
 # Conditional build:
 %bcond_without	doc	# Sphinx documentation
-%bcond_with	tests	# unit tests (die with MemoryError)
+%bcond_with	tests	# unit/functional tests (need some S3 credentials)
 
 Summary:	Low-level, data-driven core of boto 3
 Summary(pl.UTF-8):	Niskopoziomowy, oparty na danych rdzeń boto 3
 Name:		python3-botocore
-Version:	1.27.80
+Version:	1.27.96
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/botocore/
 Source0:	https://files.pythonhosted.org/packages/source/b/botocore/botocore-%{version}.tar.gz
-# Source0-md5:	5f6bc0379ab8b4b65769e0f7eef7800f
+# Source0-md5:	eec4f0ed80a3b01584c6a385831b683e
 URL:		https://pypi.org/project/botocore/
 BuildRequires:	python3-dateutil >= 2.1
+BuildRequires:	python3-dateutil < 3
 BuildRequires:	python3-jmespath >= 0.7.1
-BuildRequires:	python3-modules >= 1:3.6
+BuildRequires:	python3-jmespath < 2
+BuildRequires:	python3-modules >= 1:3.7
 BuildRequires:	python3-setuptools
+BuildRequires:	python3-urllib3 >= 1.25.4
+BuildRequires:	python3-urllib3 < 1.27
 %if %{with tests}
 BuildRequires:	python3-behave >= 1.2.5
-BuildRequires:	python3-dateutil >= 2.1
-BuildRequires:	python3-jmespath >= 0.7.1
 BuildRequires:	python3-jsonschema >= 2.5.1
-BuildRequires:	python3-nose >= 1.3.7
-BuildRequires:	python3-urllib3 >= 1.25.4
+BuildRequires:	python3-pytest >= 7.1.2
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc}
 BuildRequires:	python3-guzzle_sphinx_theme
-BuildRequires:	python3-jmespath >= 0.7.1
 BuildRequires:	sphinx-pdg-3
 %endif
-Requires:	python3-modules >= 1:3.6
+Requires:	python3-modules >= 1:3.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -67,8 +67,9 @@ Dokumentacja API modułu Pythona botocore.
 %py3_build
 
 %if %{with tests}
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTHONPATH=$(pwd) \
-nosetests-%{py3_ver} tests
+%{__python3} -m pytest tests
 %endif
 
 %if %{with doc}
