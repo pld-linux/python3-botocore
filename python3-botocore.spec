@@ -19,10 +19,10 @@ BuildRequires:	python3-dateutil >= 2.1
 BuildRequires:	python3-dateutil < 3
 BuildRequires:	python3-jmespath >= 0.7.1
 BuildRequires:	python3-jmespath < 2
-BuildRequires:	python3-modules >= 1:3.7
+BuildRequires:	python3-modules >= 1:3.8
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-urllib3 >= 1.25.4
-BuildRequires:	python3-urllib3 < 1.27
+BuildRequires:	python3-urllib3 < 3
 %if %{with tests}
 BuildRequires:	python3-behave >= 1.2.5
 BuildRequires:	python3-jsonschema >= 2.5.1
@@ -35,7 +35,7 @@ BuildRequires:	python3-guzzle_sphinx_theme
 BuildRequires:	python3-sphinx_remove_toctrees
 BuildRequires:	sphinx-pdg-3
 %endif
-Requires:	python3-modules >= 1:3.7
+Requires:	python3-modules >= 1:3.8
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
