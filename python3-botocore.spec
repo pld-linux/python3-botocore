@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	doc	# Sphinx documentation
+%bcond_with	lowmem	# non-parallel Sphinx (parallel is memory-hungry, non-parallel is slow)
 %bcond_with	tests	# unit/functional tests (need some S3 credentials)
 
 Summary:	Low-level, data-driven core of boto 3
@@ -31,6 +32,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc}
 BuildRequires:	python3-guzzle_sphinx_theme
+BuildRequires:	python3-sphinx_remove_toctrees
 BuildRequires:	sphinx-pdg-3
 %endif
 Requires:	python3-modules >= 1:3.7
@@ -75,7 +77,8 @@ PYTHONPATH=$(pwd) \
 %if %{with doc}
 PYTHONPATH=$(pwd) \
 %{__make} -C docs html \
-	SPHINXBUILD=sphinx-build-3
+	SPHINXBUILD=sphinx-build-3 \
+	%{?with_lowmem:SPHINXOPTS=}
 %endif
 
 %install
