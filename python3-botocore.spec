@@ -8,7 +8,7 @@ Summary:	Low-level, data-driven core of boto 3
 Summary(pl.UTF-8):	Niskopoziomowy, oparty na danych rdzeń boto 3
 Name:		python3-botocore
 Version:	1.34.152
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/botocore/
