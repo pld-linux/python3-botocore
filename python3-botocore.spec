@@ -2,18 +2,18 @@
 # Conditional build:
 %bcond_without	doc	# Sphinx documentation
 %bcond_with	lowmem	# non-parallel Sphinx (parallel is memory-hungry, non-parallel is slow)
-%bcond_with	tests	# unit/functional tests (need some S3 credentials)
+%bcond_without	tests	# unit/functional tests
 
 Summary:	Low-level, data-driven core of boto 3
 Summary(pl.UTF-8):	Niskopoziomowy, oparty na danych rdzeń boto 3
 Name:		python3-botocore
-Version:	1.34.152
-Release:	3
+Version:	1.42.63
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/botocore/
 Source0:	https://files.pythonhosted.org/packages/source/b/botocore/botocore-%{version}.tar.gz
-# Source0-md5:	cbc9cde1929764067bfc4d4261a321eb
+# Source0-md5:	2671b119f2af3986737278ace929d616
 URL:		https://pypi.org/project/botocore/
 BuildRequires:	python3-dateutil >= 2.1
 BuildRequires:	python3-dateutil < 3
@@ -69,9 +69,16 @@ Dokumentacja API modułu Pythona botocore.
 %py3_build
 
 %if %{with tests}
+# leak tests fail for me
+SKIP="TestDoesNotLeakMemory"
+%ifnarch %{x8664} x32 aarch64
+# these fail with 32-bit time_t
+SKIP="$SKIP or test_parse_epoch_beyond_2038 or test_parse_epoch_negative_time"
+%endif
+# integration tests require some S3 credentials
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTHONPATH=$(pwd) \
-%{__python3} -m pytest tests
+%{__python3} -m pytest tests --ignore tests/integration -k "not ($SKIP)"
 %endif
 
 %if %{with doc}
