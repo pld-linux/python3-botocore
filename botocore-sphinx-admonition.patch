@@ -1,0 +1,20 @@
+Sphinx >= 8.2 depart_admonition() pops a closing tag that the overridden
+visit_admonition() never pushes: IndexError or broken HTML in the docs.
+
+--- botocore-1.44.1/botocore/docs/translator.py.orig
++++ botocore-1.44.1/botocore/docs/translator.py
+@@ -33,6 +33,14 @@
+             )
+             self.body.append(title)
+ 
++    def depart_admonition(self, node=None):
++        """Closes the div opened by visit_admonition.
++
++        Sphinx >= 8.2 pops the closing tag from the context stack, which this
++        visit_admonition does not push.
++        """
++        self.body.append("</div>\n")
++
+     def is_implicit_heading(self, node):
+         """Determines if a node is an implicit heading.
+ 

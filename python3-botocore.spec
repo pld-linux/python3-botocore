@@ -8,12 +8,13 @@ Summary:	Low-level, data-driven core of boto 3
 Summary(pl.UTF-8):	Niskopoziomowy, oparty na danych rdzeń boto 3
 Name:		python3-botocore
 Version:	1.44.1
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/botocore/
 Source0:	https://files.pythonhosted.org/packages/source/b/botocore/botocore-%{version}.tar.gz
 # Source0-md5:	35036d5eb2ee127991f3d596c7bb85d4
+Patch0:		botocore-sphinx-admonition.patch
 URL:		https://pypi.org/project/botocore/
 BuildRequires:	python3-dateutil >= 2.1
 BuildRequires:	python3-dateutil < 3
@@ -30,7 +31,8 @@ BuildRequires:	python3-pytest >= 7.1.2
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc}
-BuildRequires:	python3-guzzle_sphinx_theme
+BuildRequires:	python3-furo
+BuildRequires:	python3-sphinx_copybutton
 BuildRequires:	python3-sphinx_remove_toctrees
 BuildRequires:	sphinx-pdg-3
 %endif
@@ -63,6 +65,7 @@ Dokumentacja API modułu Pythona botocore.
 
 %prep
 %setup -q -n botocore-%{version}
+%patch -P0 -p1
 
 %build
 %py3_build
