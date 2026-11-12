@@ -7,24 +7,23 @@
 Summary:	Low-level, data-driven core of boto 3
 Summary(pl.UTF-8):	Niskopoziomowy, oparty na danych rdzeń boto 3
 Name:		python3-botocore
-Version:	1.42.67
+Version:	1.44.1
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/botocore/
 Source0:	https://files.pythonhosted.org/packages/source/b/botocore/botocore-%{version}.tar.gz
-# Source0-md5:	7181ad6b211f5ed117a4407993e6aaaf
+# Source0-md5:	35036d5eb2ee127991f3d596c7bb85d4
 URL:		https://pypi.org/project/botocore/
 BuildRequires:	python3-dateutil >= 2.1
 BuildRequires:	python3-dateutil < 3
 BuildRequires:	python3-jmespath >= 0.7.1
 BuildRequires:	python3-jmespath < 2
-BuildRequires:	python3-modules >= 1:3.8
+BuildRequires:	python3-modules >= 1:3.10
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-urllib3 >= 1.25.4
 BuildRequires:	python3-urllib3 < 3
 %if %{with tests}
-BuildRequires:	python3-behave >= 1.2.5
 BuildRequires:	python3-jsonschema >= 2.5.1
 BuildRequires:	python3-pytest >= 7.1.2
 %endif
@@ -35,7 +34,7 @@ BuildRequires:	python3-guzzle_sphinx_theme
 BuildRequires:	python3-sphinx_remove_toctrees
 BuildRequires:	sphinx-pdg-3
 %endif
-Requires:	python3-modules >= 1:3.8
+Requires:	python3-modules >= 1:3.10
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
